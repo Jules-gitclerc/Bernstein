@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis_deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis_deployment
+  template:
+    metadata:
+      labels:
+        app: redis_deployment
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: redis_deployment
+        image: redis:5.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 6379

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poll_deployment
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: poll_deployment
+  template:
+    metadata:
+      labels:
+        app: poll_deployment
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: poll_deployment
+        image: epitechcontent/t-dop-600-poll:k8s
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80

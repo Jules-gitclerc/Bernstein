@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: result_ingress
+  labels:
+    name: result_ingress
+spec:
+  rules:
+  - host: result.dop.io
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: result_service
+            port:
+              number: http

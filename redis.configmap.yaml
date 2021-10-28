@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis_configmap
+  namespace: default
+  labels:
+    app: redis
+data:
+  key: redis_service

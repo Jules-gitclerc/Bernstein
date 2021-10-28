@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result_deployment
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: result_deployment
+  template:
+    metadata:
+      labels:
+        app: result_deployment
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: result_deployment
+        image: epitechcontent/t-dop-600-result:k8s
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
