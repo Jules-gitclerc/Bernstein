@@ -3,7 +3,10 @@ kind: Service
 metadata:
   name: result-service
   namespace: default
+  labels:
+    app: result
 spec:
+  type: ClusterIP
   selector:
     app: result
   ports:

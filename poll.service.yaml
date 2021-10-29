@@ -3,7 +3,10 @@ kind: Service
 metadata:
   name: poll-service
   namespace: default
+  labels:
+    app: poll
 spec:
+  type: ClusterIP
   selector:
     app: poll
   ports:

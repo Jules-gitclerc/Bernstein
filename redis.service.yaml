@@ -3,7 +3,10 @@ kind: Service
 metadata:
   name: redis-service
   namespace: default
+  labels:
+    app: redis
 spec:
+  type: ClusterIP
   selector:
     app: redis
   ports:

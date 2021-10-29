@@ -20,15 +20,13 @@ spec:
       - name: worker
         image: epitechcontent/t-dop-600-worker:k8s
         resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
           limits:
-            memory: "128Mi"
+            memory: 256M
+            cpu: "500m"
         envFrom:
           - configMapRef:
-              name: postgres-configmap
-          - configMapRef:
               name: redis-configmap
+          - configMapRef:
+              name: postgres-configmap
           - secretRef:
               name: postgres-secret

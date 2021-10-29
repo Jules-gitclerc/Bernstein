@@ -1,21 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: postgres-deployment
+    name: postgres
     namespace: default
+    labels:
+      app: postgres
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres-deployment
+      app: postgres
   template:
     metadata:
       labels:
-        app: postgres-deployment
+        app: postgres
     spec:
       restartPolicy: Always
       containers:
-        - name: postgres-deployment
+        - name: postgres
           image: postgres:12
           resources:
             limits:
@@ -29,9 +31,9 @@ spec:
             - configMapRef:
                 name: postgres-configmap
           volumeMounts:
-            - mountPath: "/var/lib/postgresql/data"
-              name: postgres-pv
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb
       volumes:
-        - name: postgres-pv
+        - name: postgredb
           persistentVolumeClaim:
             claimName: postgres-pvc

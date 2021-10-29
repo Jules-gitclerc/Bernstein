@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: poll-ingress
   labels:
-    name: poll-ingress
+    app: poll
 spec:
   rules:
   - host: poll.dop.io

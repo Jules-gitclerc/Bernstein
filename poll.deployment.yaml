@@ -1,21 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: poll-deployment
+  name: poll
   namespace: default
+  labels:
+    name: poll
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: poll-deployment
+      app: poll
   template:
     metadata:
       labels:
-        app: poll-deployment
+        app: poll
     spec:
       restartPolicy: Always
       containers:
-      - name: poll-deployment
+      - name: poll
         image: epitechcontent/t-dop-600-poll:k8s
         resources:
           limits:

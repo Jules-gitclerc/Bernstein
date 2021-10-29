@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: result-ingress
   labels:
-    name: result-ingress
+    app: result
 spec:
   rules:
   - host: result.dop.io
