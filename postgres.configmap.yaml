@@ -3,9 +3,7 @@ kind: ConfigMap
 metadata:
     name: postgres-configmap
     namespace: default
-    labels:
-      app: postgres
 data:
-  POSTGRES_HOST: postgres_service
+  POSTGRES_HOST: postgres-service
   POSTGRES_PORT: '5432'
   POSTGRES_DB: postgresdb

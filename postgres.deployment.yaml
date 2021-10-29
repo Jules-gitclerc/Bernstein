@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
     name: postgres-deployment
     namespace: default
-    labels:
-      app: postgres
 spec:
   replicas: 1
   selector:
@@ -32,8 +30,8 @@ spec:
                 name: postgres-configmap
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
-              name: postgres-volume
+              name: postgres-pv
       volumes:
-        - name: postgres-volume
+        - name: postgres-pv
           persistentVolumeClaim:
-            claimName: postgres-volume-claim
+            claimName: postgres-pvc
