@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis_deployment
+  name: redis-deployment
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redis_deployment
+      app: redis-deployment
   template:
     metadata:
       labels:
-        app: redis_deployment
+        app: redis-deployment
     spec:
       restartPolicy: Always
       containers:
-      - name: redis_deployment
+      - name: redis-deployment
         image: redis:5.0
         resources:
           limits:

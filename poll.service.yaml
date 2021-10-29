@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: poll_service
+  name: poll-service
   namespace: default
 spec:
   selector:
