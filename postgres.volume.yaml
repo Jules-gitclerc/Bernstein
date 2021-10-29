@@ -7,11 +7,16 @@ metadata:
     type: local
     app: postgres
 spec:
-  storageClassName: manual
   capacity:
     storage: 5Gi
+  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: slow
+  mountOptions:
+    - hard
+    - nfsvers=4.1
   hostPath:
     path: "/mnt/data"
 ---
@@ -23,9 +28,9 @@ metadata:
   labels:
     app: postgres
 spec:
-  storageClassName: manual
-  accessModes:
-    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
