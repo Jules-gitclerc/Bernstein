@@ -21,7 +21,18 @@ spec:
         image: epitechcontent/t-dop-600-poll:k8s
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: "128M"
         ports:
         - containerPort: 80
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: security
+                  operator: In
+                  values:
+                  - poll
+              topologyKey: topology.kubernetes.io/zone

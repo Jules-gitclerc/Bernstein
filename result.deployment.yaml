@@ -21,7 +21,7 @@ spec:
         image: epitechcontent/t-dop-600-result:k8s
         resources:
           limits:
-            memory: "128Mi"
+            memory: "128M"
         envFrom:
         - secretRef:
             name: postgres-secret
@@ -29,3 +29,15 @@ spec:
             name: postgres-configmap
         ports:
         - containerPort: 80
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: security
+                  operator: In
+                  values:
+                  - result
+              topologyKey: topology.kubernetes.io/zone
