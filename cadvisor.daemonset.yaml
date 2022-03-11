@@ -1,8 +1,10 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-    name: cadvisor
-    namespace: kube-system
+  name: cadvisor
+  namespace: kube-system
+  annotations:
+      seccomp.security.alpha.kubernetes.io/pod: 'docker/default'
 spec:
   selector:
     matchLabels:
@@ -12,43 +14,52 @@ spec:
       labels:
         name: cadvisor
     spec:
-      restartPolicy: Always
+      serviceAccountName: cadvisor
       containers:
       - name: cadvisor
-        image: google/cadvisor:latest
-        ports:
-          - name: http
-            containerPort: 8080
-            protocol: TCP
+        image: gcr.io/cadvisor/cadvisor:v0.39.0
+        resources:
+          requests:
+            memory: 400Mi
+            cpu: 400m
+          limits:
+            memory: 2000Mi
+            cpu: 800m
         volumeMounts:
-        - name: disk
-          mountPath: /dev/disk
-          readOnly: true
-        - name: docker
-          mountPath: /var/lib/docker
+        - name: rootfs
+          mountPath: /rootfs
           readOnly: true
         - name: var-run
           mountPath: /var/run
           readOnly: true
-        - name: rootfs
-          mountPath: /rootfs
-          readOnly: true
         - name: sys
           mountPath: /sys
           readOnly: true
+        - name: docker
+          mountPath: /var/lib/docker
+          readOnly: true
+        - name: disk
+          mountPath: /dev/disk
+          readOnly: true
+        ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
       volumes:
-      - name: docker
-        hostPath:
-          path: /var/lib/docker
-      - name: var-run
-        hostPath:
-          path: /var/run
       - name: rootfs
         hostPath:
           path: /
-      - name: disk
+      - name: var-run
         hostPath:
-          path: /dev/disk
+          path: /var/run
       - name: sys
         hostPath:
           path: /sys
+      - name: docker
+        hostPath:
+          path: /var/lib/docker
+      - name: disk
+        hostPath:
+          path: /dev/disk
